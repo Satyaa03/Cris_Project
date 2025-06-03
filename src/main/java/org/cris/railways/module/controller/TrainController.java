@@ -1,13 +1,10 @@
 package org.cris.railways.module.controller;
 
-import jakarta.annotation.PostConstruct;
-import org.cris.railways.module.dao.TrainDao;
 import org.cris.railways.module.model.Train;
+import org.cris.railways.module.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,36 +13,59 @@ import java.util.List;
 public class TrainController {
 
     @Autowired
-    private DataSource dataSource;
-    private TrainDao trainDao;
+    private TrainService trainService;
 
-    @PostConstruct
-    public void init() throws SQLException {
-        trainDao = new TrainDao(dataSource.getConnection());
+    // Constructor-based dependency injection
+    @Autowired
+    public TrainController(TrainService trainService) {
+        this.trainService = trainService;
     }
 
     @PostMapping
-    public void addTrain(@RequestBody Train train) throws SQLException {
-        trainDao.addTrain(train);
+    public void addTrain(@RequestBody Train train) {
+        try {
+            trainService.addTrain(train);
+        } catch (SQLException e) {
+            System.err.println("Error adding train: " + e.getMessage());
+        }
     }
 
     @GetMapping("/{trainNo}")
-    public Train getTrain(@PathVariable String trainNo) throws SQLException {
-        return trainDao.getTrain(trainNo);
+    public Train getTrain(@PathVariable String trainNo) {
+        try {
+            return trainService.getTrainById(trainNo);
+        } catch (SQLException e) {
+            System.err.println("Error retrieving train: " + e.getMessage());
+            return null; // Handle error appropriately
+        }
     }
 
     @GetMapping
-    public List<Train> getAllTrains() throws SQLException {
-        return trainDao.getAllTrains();
+    public List<Train> getAllTrains() {
+        try {
+            return trainService.getAllTrains();
+        } catch (SQLException e) {
+            System.err.println("Error retrieving all trains: " + e.getMessage());
+            return List.of(); // Return an empty list on error
+        }
     }
 
     @PutMapping
-    public void updateTrain(@RequestBody Train train) throws SQLException {
-        trainDao.updateTrain(train);
+    public void updateTrain(@RequestBody Train train) {
+        try {
+            trainService.updateTrain(train);
+        } catch (SQLException e) {
+            System.err.println("Error updating train: " + e.getMessage());
+        }
     }
 
     @DeleteMapping("/{trainNo}")
-    public void deleteTrain(@PathVariable String trainNo) throws SQLException {
-        trainDao.deleteTrain(trainNo);
+    public void deleteTrain(@PathVariable String trainNo) {
+        try {
+            trainService.deleteTrainById(trainNo);
+        } catch (SQLException e) {
+            System.err.println("Error deleting train: " + e.getMessage());
+        }
     }
 }
+

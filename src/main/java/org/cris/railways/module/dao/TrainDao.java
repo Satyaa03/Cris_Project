@@ -11,7 +11,8 @@ public class TrainDao {
         this.connection = connection;
     }
 
-    public void addTrain(Train train) throws SQLException {
+    // Create
+    public void addTrain(Train train) {
         String query = "INSERT INTO trains (trainNo, trainName, sequence, stationCode, stationName, arrivalTime, departureTime, distanceKms, sourceStation, sourceStationName, destinationStation, destinationStationName) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, train.getTrainNo());
@@ -27,10 +28,13 @@ public class TrainDao {
             stmt.setString(11, train.getDestinationStation());
             stmt.setString(12, train.getDestinationStationName());
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error adding train: " + e.getMessage());
         }
     }
 
-    public Train getTrain(String trainNo) throws SQLException {
+    // Read
+    public Train getTrain(String trainNo) {
         String query = "SELECT * FROM trains WHERE trainNo = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, trainNo);
@@ -51,11 +55,14 @@ public class TrainDao {
                 train.setDestinationStationName(rs.getString("destinationStationName"));
                 return train;
             }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving train: " + e.getMessage());
         }
-        return null;
+        return null; // Return null if no train found
     }
 
-    public List<Train> getAllTrains() throws SQLException {
+    // Read All
+    public List<Train> getAllTrains() {
         List<Train> trains = new ArrayList<>();
         String query = "SELECT * FROM trains";
         try (Statement stmt = connection.createStatement();
@@ -76,11 +83,14 @@ public class TrainDao {
                 train.setDestinationStationName(rs.getString("destinationStationName"));
                 trains.add(train);
             }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving all trains: " + e.getMessage());
         }
         return trains;
     }
 
-    public void updateTrain(Train train) throws SQLException {
+    // Update
+    public void updateTrain(Train train) {
         String query = "UPDATE trains SET trainName=?, sequence=?, stationCode=?, stationName=?, arrivalTime=?, departureTime=?, distanceKms=?, sourceStation=?, sourceStationName=?, destinationStation=?, destinationStationName=? WHERE trainNo=?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, train.getTrainName());
@@ -96,14 +106,20 @@ public class TrainDao {
             stmt.setString(11, train.getDestinationStationName());
             stmt.setString(12, train.getTrainNo());
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error updating train: " + e.getMessage());
         }
     }
 
-    public void deleteTrain(String trainNo) throws SQLException {
+    // Delete
+    public void deleteTrain(String trainNo) {
         String query = "DELETE FROM trains WHERE trainNo = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, trainNo);
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error deleting train: " + e.getMessage());
         }
     }
 }
+

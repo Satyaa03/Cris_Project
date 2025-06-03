@@ -11,7 +11,8 @@ public class StationDao {
         this.connection = connection;
     }
 
-    public void addStation(Station station) throws SQLException {
+    // Create
+    public void addStation(Station station) {
         String query = "INSERT INTO stations (stationName, stnCode, oldStationCategory, newStationCategory, division, zone, district, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, station.getStationName());
@@ -23,10 +24,13 @@ public class StationDao {
             stmt.setString(7, station.getDistrict());
             stmt.setString(8, station.getState());
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error adding station: " + e.getMessage());
         }
     }
 
-    public Station getStation(String stnCode) throws SQLException {
+    // Read
+    public Station getStation(String stnCode) {
         String query = "SELECT * FROM stations WHERE stnCode = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, stnCode);
@@ -43,11 +47,14 @@ public class StationDao {
                 station.setState(rs.getString("state"));
                 return station;
             }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving station: " + e.getMessage());
         }
-        return null;
+        return null; // Return null if no station found
     }
 
-    public List<Station> getAllStations() throws SQLException {
+    // Read All
+    public List<Station> getAllStations() {
         List<Station> stations = new ArrayList<>();
         String query = "SELECT * FROM stations";
         try (Statement stmt = connection.createStatement();
@@ -64,11 +71,14 @@ public class StationDao {
                 station.setState(rs.getString("state"));
                 stations.add(station);
             }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving all stations: " + e.getMessage());
         }
         return stations;
     }
 
-    public void updateStation(Station station) throws SQLException {
+    // Update
+    public void updateStation(Station station) {
         String query = "UPDATE stations SET stationName=?, oldStationCategory=?, newStationCategory=?, division=?, zone=?, district=?, state=? WHERE stnCode=?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, station.getStationName());
@@ -80,14 +90,19 @@ public class StationDao {
             stmt.setString(7, station.getState());
             stmt.setString(8, station.getStnCode());
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error updating station: " + e.getMessage());
         }
     }
 
-    public void deleteStation(String stnCode) throws SQLException {
+    // Delete
+    public void deleteStation(String stnCode) {
         String query = "DELETE FROM stations WHERE stnCode = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, stnCode);
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error deleting station: " + e.getMessage());
         }
     }
 }

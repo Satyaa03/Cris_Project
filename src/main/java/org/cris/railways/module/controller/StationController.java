@@ -1,13 +1,10 @@
 package org.cris.railways.module.controller;
 
-import jakarta.annotation.PostConstruct;
-import org.cris.railways.module.dao.StationDao;
 import org.cris.railways.module.model.Station;
+import org.cris.railways.module.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,36 +13,59 @@ import java.util.List;
 public class StationController {
 
     @Autowired
-    private DataSource dataSource;
-    private StationDao stationDao;
+    private StationService stationService;
 
-    @PostConstruct
-    public void init() throws SQLException {
-        stationDao = new StationDao(dataSource.getConnection());
+    // Constructor-based dependency injection
+    @Autowired
+    public StationController(StationService stationService) {
+        this.stationService = stationService;
     }
 
     @PostMapping
-    public void addStation(@RequestBody Station station) throws SQLException {
-        stationDao.addStation(station);
+    public void addStation(@RequestBody Station station) {
+        try {
+            stationService.addStation(station);
+        } catch (SQLException e) {
+            System.err.println("Error adding station: " + e.getMessage());
+        }
     }
 
     @GetMapping("/{stnCode}")
-    public Station getStation(@PathVariable String stnCode) throws SQLException {
-        return stationDao.getStation(stnCode);
+    public Station getStation(@PathVariable String stnCode) {
+        try {
+            return stationService.getStation(stnCode);
+        } catch (SQLException e) {
+            System.err.println("Error retrieving station: " + e.getMessage());
+            return null; // Handle error appropriately
+        }
     }
 
     @GetMapping
-    public List<Station> getAllStations() throws SQLException {
-        return stationDao.getAllStations();
+    public List<Station> getAllStations() {
+        try {
+            return stationService.getAllStations();
+        } catch (SQLException e) {
+            System.err.println("Error retrieving all stations: " + e.getMessage());
+            return List.of(); // Return an empty list on error
+        }
     }
 
     @PutMapping
-    public void updateStation(@RequestBody Station station) throws SQLException {
-        stationDao.updateStation(station);
+    public void updateStation(@RequestBody Station station) {
+        try {
+            stationService.updateStation(station);
+        } catch (SQLException e) {
+            System.err.println("Error updating station: " + e.getMessage());
+        }
     }
 
     @DeleteMapping("/{stnCode}")
-    public void deleteStation(@PathVariable String stnCode) throws SQLException {
-        stationDao.deleteStation(stnCode);
+    public void deleteStation(@PathVariable String stnCode) {
+        try {
+            stationService.deleteStation(stnCode);
+        } catch (SQLException e) {
+            System.err.println("Error deleting station: " + e.getMessage());
+        }
     }
 }
+

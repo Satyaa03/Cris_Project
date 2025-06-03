@@ -1,13 +1,10 @@
 package org.cris.railways.module.controller;
 
-import jakarta.annotation.PostConstruct;
-import org.cris.railways.module.dao.ZoneDao;
 import org.cris.railways.module.model.Zone;
+import org.cris.railways.module.service.ZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,38 +13,61 @@ import java.util.List;
 public class ZoneController {
 
     @Autowired
-    private DataSource dataSource;
-    private ZoneDao zoneDao;
+    private ZoneService zoneService;
 
-    @PostConstruct
-    public void init() throws SQLException {
-        zoneDao = new ZoneDao(dataSource.getConnection());
+    // Constructor-based dependency injection
+    @Autowired
+    public ZoneController(ZoneService zoneService) {
+        this.zoneService = zoneService;
     }
 
     @PostMapping
-    public void addZone(@RequestBody Zone zone) throws SQLException {
-        zoneDao.addZone(zone);
+    public void addZone(@RequestBody Zone zone) {
+        try {
+            zoneService.addZone(zone);
+        } catch (SQLException e) {
+            System.err.println("Error adding zone: " + e.getMessage());
+        }
     }
 
     @GetMapping("/{code}")
-    public Zone getZone(@PathVariable String code) throws SQLException {
-        return zoneDao.getZone(code);
+    public Zone getZone(@PathVariable String code) {
+        try {
+            return zoneService.getZone(code);
+        } catch (SQLException e) {
+            System.err.println("Error retrieving zone: " + e.getMessage());
+            return null; // Handle error appropriately
+        }
     }
 
     @GetMapping
-    public List<Zone> getAllZones() throws SQLException {
-        return zoneDao.getAllZones();
+    public List<Zone> getAllZones() {
+        try {
+            return zoneService.getAllZones();
+        } catch (SQLException e) {
+            System.err.println("Error retrieving all zones: " + e.getMessage());
+            return List.of(); // Return an empty list on error
+        }
     }
 
     @PutMapping
-    public void updateZone(@RequestBody Zone zone) throws SQLException {
-        zoneDao.updateZone(zone);
+    public void updateZone(@RequestBody Zone zone) {
+        try {
+            zoneService.updateZone(zone);
+        } catch (SQLException e) {
+            System.err.println("Error updating zone: " + e.getMessage());
+        }
     }
 
     @DeleteMapping("/{code}")
-    public void deleteZone(@PathVariable String code) throws SQLException {
-        zoneDao.deleteZone(code);
+    public void deleteZone(@PathVariable String code) {
+        try {
+            zoneService.deleteZone(code);
+        } catch (SQLException e) {
+            System.err.println("Error deleting zone: " + e.getMessage());
+        }
     }
 }
+
 
 
