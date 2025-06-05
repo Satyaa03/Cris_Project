@@ -13,7 +13,7 @@ public class StationDao {
 
     // Create
     public void addStation(Station station) {
-        String query = "INSERT INTO stations (stationName, stnCode, oldStationCategory, newStationCategory, division, zone, district, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO stations (station_name, stn_code, old_station_category, new_station_category, division, zone, district, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, station.getStationName());
             stmt.setString(2, station.getStnCode());
@@ -30,17 +30,17 @@ public class StationDao {
     }
 
     // Read
-    public Station getStation(String stnCode) {
-        String query = "SELECT * FROM stations WHERE stnCode = ?";
+    public Station getStation(String stn_code) {
+        String query = "SELECT * FROM stations WHERE stn_code = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, stnCode);
+            stmt.setString(1, stn_code);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Station station = new Station();
-                station.setStationName(rs.getString("stationName"));
-                station.setStnCode(rs.getString("stnCode"));
-                station.setOldStationCategory(rs.getString("oldStationCategory"));
-                station.setNewStationCategory(rs.getString("newStationCategory"));
+                station.setStationName(rs.getString("station_name"));
+                station.setStnCode(rs.getString("stn_code"));
+                station.setOldStationCategory(rs.getString("old_station_category"));
+                station.setNewStationCategory(rs.getString("new_station_category"));
                 station.setDivision(rs.getString("division"));
                 station.setZone(rs.getString("zone"));
                 station.setDistrict(rs.getString("district"));
@@ -61,10 +61,10 @@ public class StationDao {
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 Station station = new Station();
-                station.setStationName(rs.getString("stationName"));
-                station.setStnCode(rs.getString("stnCode"));
-                station.setOldStationCategory(rs.getString("oldStationCategory"));
-                station.setNewStationCategory(rs.getString("newStationCategory"));
+                station.setStationName(rs.getString("station_name"));
+                station.setStnCode(rs.getString("stn_code"));
+                station.setOldStationCategory(rs.getString("old_station_category"));
+                station.setNewStationCategory(rs.getString("new_station_category"));
                 station.setDivision(rs.getString("division"));
                 station.setZone(rs.getString("zone"));
                 station.setDistrict(rs.getString("district"));
@@ -79,7 +79,7 @@ public class StationDao {
 
     // Update
     public void updateStation(Station station) {
-        String query = "UPDATE stations SET stationName=?, oldStationCategory=?, newStationCategory=?, division=?, zone=?, district=?, state=? WHERE stnCode=?";
+        String query = "UPDATE stations SET station_name=?, old_station_category=?, new_station_category=?, division=?, zone=?, district=?, state=? WHERE stn_code=?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, station.getStationName());
             stmt.setString(2, station.getOldStationCategory());
@@ -97,7 +97,7 @@ public class StationDao {
 
     // Delete
     public void deleteStation(String stnCode) {
-        String query = "DELETE FROM stations WHERE stnCode = ?";
+        String query = "DELETE FROM stations WHERE stn_code = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, stnCode);
             stmt.executeUpdate();

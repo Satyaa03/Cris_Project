@@ -13,7 +13,7 @@ public class TrainDao {
 
     // Create
     public void addTrain(Train train) {
-        String query = "INSERT INTO trains (trainNo, trainName, sequence, stationCode, stationName, arrivalTime, departureTime, distanceKms, sourceStation, sourceStationName, destinationStation, destinationStationName) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO trains (train_no, train_name, sequence, station_code, station_name, arrival_time, departure_time, distance_kms, source_station, source_station_name, destination_station, destination_station_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, train.getTrainNo());
             stmt.setString(2, train.getTrainName());
@@ -34,25 +34,25 @@ public class TrainDao {
     }
 
     // Read
-    public Train getTrain(String trainNo) {
-        String query = "SELECT * FROM trains WHERE trainNo = ?";
+    public Train getTrain(String train_no) {
+        String query = "SELECT * FROM trains WHERE train_no = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, trainNo);
+            stmt.setString(1, train_no);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Train train = new Train();
-                train.setTrainNo(rs.getString("trainNo"));
-                train.setTrainName(rs.getString("trainName"));
+                train.setTrainNo(rs.getString("train_no"));
+                train.setTrainName(rs.getString("train_name"));
                 train.setSequence(rs.getInt("sequence"));
-                train.setStationCode(rs.getString("stationCode"));
-                train.setStationName(rs.getString("stationName"));
-                train.setArrivalTime(rs.getString("arrivalTime"));
-                train.setDepartureTime(rs.getString("departureTime"));
-                train.setDistanceKms(rs.getDouble("distanceKms"));
-                train.setSourceStation(rs.getString("sourceStation"));
-                train.setSourceStationName(rs.getString("sourceStationName"));
-                train.setDestinationStation(rs.getString("destinationStation"));
-                train.setDestinationStationName(rs.getString("destinationStationName"));
+                train.setStationCode(rs.getString("station_code"));
+                train.setStationName(rs.getString("station_name"));
+                train.setArrivalTime(rs.getString("arrival_time"));
+                train.setDepartureTime(rs.getString("departure_time"));
+                train.setDistanceKms(rs.getDouble("distance_kms"));
+                train.setSourceStation(rs.getString("source_station"));
+                train.setSourceStationName(rs.getString("source_station_name"));
+                train.setDestinationStation(rs.getString("destination_station"));
+                train.setDestinationStationName(rs.getString("destination_station_name"));
                 return train;
             }
         } catch (SQLException e) {
@@ -69,18 +69,18 @@ public class TrainDao {
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 Train train = new Train();
-                train.setTrainNo(rs.getString("trainNo"));
-                train.setTrainName(rs.getString("trainName"));
+                train.setTrainNo(rs.getString("train_no"));
+                train.setTrainName(rs.getString("train_name"));
                 train.setSequence(rs.getInt("sequence"));
-                train.setStationCode(rs.getString("stationCode"));
-                train.setStationName(rs.getString("stationName"));
-                train.setArrivalTime(rs.getString("arrivalTime"));
-                train.setDepartureTime(rs.getString("departureTime"));
-                train.setDistanceKms(rs.getDouble("distanceKms"));
-                train.setSourceStation(rs.getString("sourceStation"));
-                train.setSourceStationName(rs.getString("sourceStationName"));
-                train.setDestinationStation(rs.getString("destinationStation"));
-                train.setDestinationStationName(rs.getString("destinationStationName"));
+                train.setStationCode(rs.getString("station_code"));
+                train.setStationName(rs.getString("station_name"));
+                train.setArrivalTime(rs.getString("arrival_time"));
+                train.setDepartureTime(rs.getString("departure_time"));
+                train.setDistanceKms(rs.getDouble("distance_kms"));
+                train.setSourceStation(rs.getString("source_station"));
+                train.setSourceStationName(rs.getString("source_station_name"));
+                train.setDestinationStation(rs.getString("destination_station"));
+                train.setDestinationStationName(rs.getString("destination_station_name"));
                 trains.add(train);
             }
         } catch (SQLException e) {
@@ -91,7 +91,7 @@ public class TrainDao {
 
     // Update
     public void updateTrain(Train train) {
-        String query = "UPDATE trains SET trainName=?, sequence=?, stationCode=?, stationName=?, arrivalTime=?, departureTime=?, distanceKms=?, sourceStation=?, sourceStationName=?, destinationStation=?, destinationStationName=? WHERE trainNo=?";
+        String query = "UPDATE trains SET train_name=?, sequence=?, station_code=?, station_name=?, arrival_time=?, departure_time=?, distance_kms=?, source_station=?, source_station_name=?, destination_station=?, destination_station_name=? WHERE train_no=?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, train.getTrainName());
             stmt.setInt(2, train.getSequence());
@@ -112,10 +112,10 @@ public class TrainDao {
     }
 
     // Delete
-    public void deleteTrain(String trainNo) {
-        String query = "DELETE FROM trains WHERE trainNo = ?";
+    public void deleteTrain(String train_no) {
+        String query = "DELETE FROM trains WHERE train_no = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, trainNo);
+            stmt.setString(1, train_no);
             stmt.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error deleting train: " + e.getMessage());

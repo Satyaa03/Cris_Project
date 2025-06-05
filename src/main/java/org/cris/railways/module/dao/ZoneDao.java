@@ -13,7 +13,7 @@ public class ZoneDao {
 
     // Create
     public void addZone(Zone zone) {
-        String query = "INSERT INTO zones (railwayZone, code, headquarters, railwayDivisions) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO zones (railway_zone, code, headquarters, railway_divisions) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, zone.getRailwayZone());
             stmt.setString(2, zone.getCode());
@@ -33,10 +33,10 @@ public class ZoneDao {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Zone zone = new Zone();
-                zone.setRailwayZone(rs.getString("railwayZone"));
+                zone.setRailwayZone(rs.getString("railway_zone"));
                 zone.setCode(rs.getString("code"));
                 zone.setHeadquarters(rs.getString("headquarters"));
-                zone.setRailwayDivisions(rs.getString("railwayDivisions"));
+                zone.setRailwayDivisions(rs.getString("railway_divisions"));
                 return zone;
             }
         } catch (SQLException e) {
@@ -53,10 +53,10 @@ public class ZoneDao {
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 Zone zone = new Zone();
-                zone.setRailwayZone(rs.getString("railwayZone"));
+                zone.setRailwayZone(rs.getString("railway_zone"));
                 zone.setCode(rs.getString("code"));
                 zone.setHeadquarters(rs.getString("headquarters"));
-                zone.setRailwayDivisions(rs.getString("railwayDivisions"));
+                zone.setRailwayDivisions(rs.getString("railway_divisions"));
                 zones.add(zone);
             }
         } catch (SQLException e) {
@@ -67,7 +67,7 @@ public class ZoneDao {
 
     // Update
     public void updateZone(Zone zone) {
-        String query = "UPDATE zones SET railwayZone=?, headquarters=?, railwayDivisions=? WHERE code=?";
+        String query = "UPDATE zones SET railway_zone=?, headquarters=?, railway_divisions=? WHERE code=?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, zone.getRailwayZone());
             stmt.setString(2, zone.getHeadquarters());

@@ -24,8 +24,8 @@ public class StationService {
         stationDao.addStation(station);
     }
 
-    public Station getStation(String stnCode) throws SQLException {
-        return stationDao.getStation(stnCode);
+    public Station getStation(String stn_code) throws SQLException {
+        return stationDao.getStation(stn_code);
     }
 
     public List<Station> getAllStations() throws SQLException {
@@ -36,8 +36,8 @@ public class StationService {
         stationDao.updateStation(station);
     }
 
-    public void deleteStation(String stnCode) throws SQLException {
-        stationDao.deleteStation(stnCode);
+    public void deleteStation(String stn_code) throws SQLException {
+        stationDao.deleteStation(stn_code);
     }
 }
 

@@ -30,10 +30,10 @@ public class StationController {
         }
     }
 
-    @GetMapping("/{stnCode}")
-    public Station getStation(@PathVariable String stnCode) {
+    @GetMapping("/{stn_code}")
+    public Station getStation(@PathVariable String stn_code) {
         try {
-            return stationService.getStation(stnCode);
+            return stationService.getStation(stn_code);
         } catch (SQLException e) {
             System.err.println("Error retrieving station: " + e.getMessage());
             return null; // Handle error appropriately
@@ -59,10 +59,10 @@ public class StationController {
         }
     }
 
-    @DeleteMapping("/{stnCode}")
-    public void deleteStation(@PathVariable String stnCode) {
+    @DeleteMapping("/{stn_code}")
+    public void deleteStation(@PathVariable String stn_code) {
         try {
-            stationService.deleteStation(stnCode);
+            stationService.deleteStation(stn_code);
         } catch (SQLException e) {
             System.err.println("Error deleting station: " + e.getMessage());
         }
