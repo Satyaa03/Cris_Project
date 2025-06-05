@@ -1,4 +1,4 @@
-package org.cris.railways.module.cris_api;
+package org.cris.railways.module;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
