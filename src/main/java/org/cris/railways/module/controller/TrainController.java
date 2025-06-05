@@ -30,13 +30,13 @@ public class TrainController {
         }
     }
 
-    @GetMapping("/{trainNo}")
-    public Train getTrain(@PathVariable String trainNo) {
+    @GetMapping("/{trainNo}/{sequence}")
+    public Train getTrain(@PathVariable String trainNo, @PathVariable int sequence) {
         try {
-            return trainService.getTrainById(trainNo);
+        return trainService.getTrainById(trainNo, sequence);
         } catch (SQLException e) {
-            System.err.println("Error retrieving train: " + e.getMessage());
-            return null; // Handle error appropriately
+        System.err.println("Error retrieving train: " + e.getMessage());
+        return null;
         }
     }
 
@@ -67,5 +67,14 @@ public class TrainController {
             System.err.println("Error deleting train: " + e.getMessage());
         }
     }
-}
 
+    @GetMapping("/number/{trainNo}")
+    public List<Train> getTrainsByNumber(@PathVariable String trainNo) {
+        try {
+            return trainService.getTrainsByTrainNo(trainNo);
+        } catch (SQLException e) {
+            System.err.println("Error retrieving trains: " + e.getMessage());
+            return List.of(); // Return empty list on error
+        }
+    }
+}

@@ -34,32 +34,33 @@ public class TrainDao {
     }
 
     // Read
-    public Train getTrain(String train_no) {
-        String query = "SELECT * FROM trains WHERE train_no = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, train_no);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                Train train = new Train();
-                train.setTrainNo(rs.getString("train_no"));
-                train.setTrainName(rs.getString("train_name"));
-                train.setSequence(rs.getInt("sequence"));
-                train.setStationCode(rs.getString("station_code"));
-                train.setStationName(rs.getString("station_name"));
-                train.setArrivalTime(rs.getString("arrival_time"));
-                train.setDepartureTime(rs.getString("departure_time"));
-                train.setDistanceKms(rs.getDouble("distance_kms"));
-                train.setSourceStation(rs.getString("source_station"));
-                train.setSourceStationName(rs.getString("source_station_name"));
-                train.setDestinationStation(rs.getString("destination_station"));
-                train.setDestinationStationName(rs.getString("destination_station_name"));
-                return train;
-            }
-        } catch (SQLException e) {
-            System.err.println("Error retrieving train: " + e.getMessage());
+    public Train getTrain(String train_no, int sequence) {
+    String query = "SELECT * FROM trains WHERE train_no = ? AND sequence = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(query)) {
+        stmt.setString(1, train_no);
+        stmt.setInt(2, sequence);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            Train train = new Train();
+            train.setTrainNo(rs.getString("train_no"));
+            train.setTrainName(rs.getString("train_name"));
+            train.setSequence(rs.getInt("sequence"));
+            train.setStationCode(rs.getString("station_code"));
+            train.setStationName(rs.getString("station_name"));
+            train.setArrivalTime(rs.getString("arrival_time"));
+            train.setDepartureTime(rs.getString("departure_time"));
+            train.setDistanceKms(rs.getDouble("distance_kms"));
+            train.setSourceStation(rs.getString("source_station"));
+            train.setSourceStationName(rs.getString("source_station_name"));
+            train.setDestinationStation(rs.getString("destination_station"));
+            train.setDestinationStationName(rs.getString("destination_station_name"));
+            return train;
         }
-        return null; // Return null if no train found
+    } catch (SQLException e) {
+        System.err.println("Error retrieving train: " + e.getMessage());
     }
+    return null;
+}
 
     // Read All
     public List<Train> getAllTrains() {
@@ -121,5 +122,35 @@ public class TrainDao {
             System.err.println("Error deleting train: " + e.getMessage());
         }
     }
+
+    //Read by Train Number
+    public List<Train> getTrainsByTrainNo(String trainNo) {
+        List<Train> trains = new ArrayList<>();
+        String query = "SELECT * FROM trains WHERE train_no = ? ORDER BY sequence";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+        stmt.setString(1, trainNo);
+        ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Train train = new Train();
+                train.setTrainNo(rs.getString("train_no"));
+                train.setTrainName(rs.getString("train_name"));
+                train.setSequence(rs.getInt("sequence"));
+                train.setStationCode(rs.getString("station_code"));
+                train.setStationName(rs.getString("station_name"));
+                train.setArrivalTime(rs.getString("arrival_time"));
+                train.setDepartureTime(rs.getString("departure_time"));
+                train.setDistanceKms(rs.getDouble("distance_kms"));
+                train.setSourceStation(rs.getString("source_station"));
+                train.setSourceStationName(rs.getString("source_station_name"));
+                train.setDestinationStation(rs.getString("destination_station"));
+                train.setDestinationStationName(rs.getString("destination_station_name"));
+                trains.add(train);
+            }
+        } catch (SQLException e) {
+        System.err.println("Error fetching trains by train_no: " + e.getMessage());
+        }
+        return trains;
+    }
+
 }
 

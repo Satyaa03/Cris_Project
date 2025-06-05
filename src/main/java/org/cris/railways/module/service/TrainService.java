@@ -24,8 +24,8 @@ public class TrainService {
         trainDao.addTrain(train);
     }
 
-    public Train getTrainById(String trainNo) throws SQLException {
-        return trainDao.getTrain(trainNo);
+    public Train getTrainById(String trainNo, int sequence) throws SQLException {
+    return trainDao.getTrain(trainNo, sequence);
     }
 
     public List<Train> getAllTrains() throws SQLException {
@@ -39,4 +39,9 @@ public class TrainService {
     public void deleteTrainById(String trainNo) throws SQLException {
         trainDao.deleteTrain(trainNo);
     }
+
+    public List<Train> getTrainsByTrainNo(String trainNo) throws SQLException {
+    return trainDao.getTrainsByTrainNo(trainNo);
+    }
+
 }
