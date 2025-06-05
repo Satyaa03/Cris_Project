@@ -1,33 +1,33 @@
 package org.cris.railways.module.model;
 
 public class Train {
-    private String trainNo;
-    private String trainName;
+    private String train_no;
+    private String train_name;
     private int sequence;
-    private String stationCode;
-    private String stationName;
-    private String arrivalTime;
-    private String departureTime;
-    private double distanceKms;
-    private String sourceStation;
-    private String sourceStationName;
-    private String destinationStation;
-    private String destinationStationName;
+    private String station_code;
+    private String station_name;
+    private String arrival_time;
+    private String departure_time;
+    private double distance_kms;
+    private String source_station;
+    private String source_station_name;
+    private String destination_station;
+    private String destination_station_name;
 
     public String getTrainNo() {
-        return trainNo;
+        return train_no;
     }
 
-    public void setTrainNo(String trainNo) {
-        this.trainNo = trainNo;
+    public void setTrainNo(String train_no) {
+        this.train_no = train_no;
     }
 
     public String getTrainName() {
-        return trainName;
+        return train_name;
     }
 
-    public void setTrainName(String trainName) {
-        this.trainName = trainName;
+    public void setTrainName(String train_name) {
+        this.train_name = train_name;
     }
 
     public int getSequence() {
@@ -39,74 +39,74 @@ public class Train {
     }
 
     public String getStationCode() {
-        return stationCode;
+        return station_code;
     }
 
-    public void setStationCode(String stationCode) {
-        this.stationCode = stationCode;
+    public void setStationCode(String station_code) {
+        this.station_code = station_code;
     }
 
     public String getStationName() {
-        return stationName;
+        return station_name;
     }
 
-    public void setStationName(String stationName) {
-        this.stationName = stationName;
+    public void setStationName(String station_name) {
+        this.station_name = station_name;
     }
 
     public String getArrivalTime() {
-        return arrivalTime;
+        return arrival_time;
     }
 
-    public void setArrivalTime(String arrivalTime) {
-        this.arrivalTime = arrivalTime;
+    public void setArrivalTime(String arrival_time) {
+        this.arrival_time = arrival_time;
     }
 
     public String getDepartureTime() {
-        return departureTime;
+        return departure_time;
     }
 
-    public void setDepartureTime(String departureTime) {
-        this.departureTime = departureTime;
+    public void setDepartureTime(String departure_time) {
+        this.departure_time = departure_time;
     }
 
     public double getDistanceKms() {
-        return distanceKms;
+        return distance_kms;
     }
 
-    public void setDistanceKms(double distanceKms) {
-        this.distanceKms = distanceKms;
+    public void setDistanceKms(double distance_kms) {
+        this.distance_kms = distance_kms;
     }
 
     public String getSourceStation() {
-        return sourceStation;
+        return source_station;
     }
 
-    public void setSourceStation(String sourceStation) {
-        this.sourceStation = sourceStation;
+    public void setSourceStation(String source_station) {
+        this.source_station = source_station;
     }
 
     public String getSourceStationName() {
-        return sourceStationName;
+        return source_station_name;
     }
 
-    public void setSourceStationName(String sourceStationName) {
-        this.sourceStationName = sourceStationName;
+    public void setSourceStationName(String source_station_name) {
+        this.source_station_name = source_station_name;
     }
 
     public String getDestinationStation() {
-        return destinationStation;
+        return destination_station;
     }
 
-    public void setDestinationStation(String destinationStation) {
-        this.destinationStation = destinationStation;
+    public void setDestinationStation(String destination_station) {
+        this.destination_station = destination_station;
     }
 
     public String getDestinationStationName() {
-        return destinationStationName;
+        return destination_station_name;
     }
 
-    public void setDestinationStationName(String destinationStationName) {
-        this.destinationStationName = destinationStationName;
+    public void setDestinationStationName(String destination_station_name) {
+        this.destination_station_name = destination_station_name;
     }
 }

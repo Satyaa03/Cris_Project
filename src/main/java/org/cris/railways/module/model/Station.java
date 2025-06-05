@@ -1,45 +1,45 @@
 package org.cris.railways.module.model;
 
 public class Station {
-    private String stationName;
-    private String stnCode;
-    private String oldStationCategory;
-    private String newStationCategory;
+    private String station_name;
+    private String stn_code;
+    private String old_station_category;
+    private String new_station_category;
     private String division;
     private String zone;
     private String district;
     private String state;
 
     public String getStationName() {
-        return stationName;
+        return station_name;
     }
 
-    public void setStationName(String stationName) {
-        this.stationName = stationName;
+    public void setStationName(String station_name) {
+        this.station_name = station_name;
     }
 
     public String getStnCode() {
-        return stnCode;
+        return stn_code;
     }
 
-    public void setStnCode(String stnCode) {
-        this.stnCode = stnCode;
+    public void setStnCode(String stn_code) {
+        this.stn_code = stn_code;
     }
 
     public String getOldStationCategory() {
-        return oldStationCategory;
+        return old_station_category;
     }
 
-    public void setOldStationCategory(String oldStationCategory) {
-        this.oldStationCategory = oldStationCategory;
+    public void setOldStationCategory(String old_station_category) {
+        this.old_station_category = old_station_category;
     }
 
     public String getNewStationCategory() {
-        return newStationCategory;
+        return new_station_category;
     }
 
-    public void setNewStationCategory(String newStationCategory) {
-        this.newStationCategory = newStationCategory;
+    public void setNewStationCategory(String new_station_category) {
+        this.new_station_category = new_station_category;
     }
 
     public String getDivision() {
