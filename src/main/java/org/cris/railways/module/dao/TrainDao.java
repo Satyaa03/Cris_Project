@@ -126,7 +126,7 @@ public class TrainDao {
     //Read by Train Number
     public List<Train> getTrainsByTrainNo(String trainNo) {
         List<Train> trains = new ArrayList<>();
-        String query = "SELECT * FROM trains WHERE train_no = ? ORDER BY sequence";
+        String query = "SELECT * FROM trains WHERE train_no = coalesce( ? , train_no) ORDER BY sequence";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
         stmt.setString(1, trainNo);
         ResultSet rs = stmt.executeQuery();
