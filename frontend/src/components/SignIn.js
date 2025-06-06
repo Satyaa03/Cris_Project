@@ -1,21 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+const generateCaptcha = () => {
+  // Generate a simple random string for CAPTCHA
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let captcha = '';
+  for (let i = 0; i < 6; i++) {
+    captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return captcha;
+};
 
 const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [captcha, setCaptcha] = useState('');
-  const [activeCaptcha] = useState('6czj0'); // Example captcha
+  const [activeCaptcha, setActiveCaptcha] = useState('');
+
+  useEffect(() => {
+    setActiveCaptcha(generateCaptcha());
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({ username, password, captcha });
+    if (captcha === activeCaptcha) {
+      console.log('CAPTCHA is valid. Proceed with sign-in.');
+    } else {
+      console.log('CAPTCHA is invalid. Please try again.');
+    }
+  };
+
+  const handleRefreshCaptcha = () => {
+    setActiveCaptcha(generateCaptcha());
+    setCaptcha('');
   };
 
   return (
     <section className="signin-container">
       <style>{`
         .signin-container {
-          background: #fff;
+          background: #f0f4ff; /* Light blue background */
           padding: 40px;
           border-radius: 16px;
           box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
@@ -28,7 +52,7 @@ const SignIn = () => {
           text-align: center;
           font-size: 2rem;
           margin-bottom: 24px;
-          color: #111827;
+          color: #1e3a8a; /* Dark blue text */
         }
 
         form {
@@ -41,7 +65,7 @@ const SignIn = () => {
           font-weight: 600;
           margin-bottom: 6px;
           display: block;
-          color: #374151;
+          color: #1e40af; /* Medium blue label color */
         }
 
         input[type="text"],
@@ -49,16 +73,16 @@ const SignIn = () => {
           width: 100%;
           padding: 12px;
           border-radius: 12px;
-          border: 1px solid #d1d5db;
+          border: 1px solid #cbd5e1; /* Light gray border */
           font-size: 1rem;
-          background-color: #f9fafb;
+          background-color: #e0f2fe; /* Light blue input */
           transition: border-color 0.3s;
         }
 
         input:focus {
           outline: none;
-          border-color: #111827;
-          background-color: #fff;
+          border-color: #1e40af; /* Focused border in medium blue */
+          background-color: #ffffff; /* White background when focused */
         }
 
         .captcha-box {
@@ -68,17 +92,17 @@ const SignIn = () => {
         }
 
         .captcha-text {
-          background-color: #e5e7eb;
+          background-color: #bfdbfe; /* Lighter blue for captcha display */
           padding: 8px 16px;
           border-radius: 8px;
           font-weight: 700;
           font-size: 1.125rem;
-          color: #111827;
+          color: #1e3a8a; /* Dark blue text */
           user-select: none;
         }
 
         button[type="submit"] {
-          background-color: #111827;
+          background-color: #1e3a8a; /* Dark blue button */
           color: white;
           padding: 12px;
           font-size: 1rem;
@@ -90,7 +114,7 @@ const SignIn = () => {
         }
 
         button:hover {
-          background-color: #374151;
+          background-color: #3b82f6; /* Light blue on hover */
           box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
         }
 
@@ -100,7 +124,7 @@ const SignIn = () => {
         }
 
         p a {
-          color: #3b82f6;
+          color: #3b82f6; /* Link color */
           text-decoration: none;
         }
 
@@ -109,19 +133,18 @@ const SignIn = () => {
         }
 
         .forgot-password-btn {
-        background: none;
-        border: none;
-        padding: 0;
-        color: #3b82f6;
-        text-decoration: underline;
-        cursor: pointer;
-        font-size: 1rem;
+          background: none;
+          border: none;
+          padding: 0;
+          color: #3b82f6; /* Link color */
+          text-decoration: underline;
+          cursor: pointer;
+          font-size: 1rem;
         }
 
         .forgot-password-btn:hover {
-        color: #1d4ed8;
+          color: #1d4ed8; /* Darker blue on hover */
         }
-
       `}</style>
 
       <h2>Sign In</h2>
@@ -159,19 +182,20 @@ const SignIn = () => {
               onChange={(e) => setCaptcha(e.target.value)}
               required
             />
+            <button type="button" onClick={handleRefreshCaptcha}>Refresh</button>
           </div>
         </div>
 
         <button type="submit">Login</button>
 
         <p>
-            <button
-                type="button"
-                onClick={() => alert('Redirecting to Forgot Password flow...')}
-                className="forgot-password-btn"
-            >
+          <button
+            type="button"
+            onClick={() => alert('Redirecting to Forgot Password flow...')}
+            className="forgot-password-btn"
+          >
             Forgot Password?
-            </button>
+          </button>
         </p>
       </form>
     </section>
@@ -179,4 +203,3 @@ const SignIn = () => {
 };
 
 export default SignIn;
-
