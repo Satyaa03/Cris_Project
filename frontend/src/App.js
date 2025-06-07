@@ -5,6 +5,8 @@ import Trains from './components/Trains';
 import Stations from './components/Stations';
 import Zones from './components/Zones';
 import SignIn from './components/SignIn';
+import Register from './components/Register';
+
 
 export default function App() {
   return (
@@ -182,9 +184,6 @@ export default function App() {
             <NavLink to="/zones" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
               <FaNetworkWired aria-hidden="true" /> Zones
             </NavLink>
-            <NavLink to="/sign-in" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-              Sign In
-            </NavLink>
           </div>
         </nav>
 
@@ -248,6 +247,14 @@ export default function App() {
                 </section>
               }
             />
+            <Route 
+              path="/signin" 
+              element={
+                <SignIn />
+              } 
+            />
+            <Route path="/register" element={<Register />} />
+            <Route path="*" element={<SignIn />} /> {/* default to signin */}
           </Routes>
         </main>
       </Router>

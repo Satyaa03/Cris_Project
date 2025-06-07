@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const generateCaptcha = () => {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -10,11 +9,11 @@ const generateCaptcha = () => {
   return captcha;
 };
 
-const SignIn = () => {
-  const navigate = useNavigate();
-
+const Register = () => {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [captcha, setCaptcha] = useState('');
   const [activeCaptcha, setActiveCaptcha] = useState('');
 
@@ -30,22 +29,28 @@ const SignIn = () => {
       return;
     }
 
+    if (password !== confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+
     try {
-      const response = await fetch("http://localhost:8080/api/users/login", {
+      const response = await fetch("http://localhost:8080/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, email, password })
       });
 
       if (response.ok) {
-        alert("Login successful!");
-        // TODO: redirect or update UI on successful login
-      } else if (response.status === 401) {
-        alert("Invalid credentials");
+        alert("Registration successful! Please login.");
+        // TODO: Redirect to login page or update UI
+      } else if (response.status === 409) {
+        alert("Username or email already exists.");
       } else {
-        alert("Login failed, please try again.");
+        alert("Registration failed, please try again.");
       }
     } catch (error) {
+      console.error("Error registering:", error);
       alert("Something went wrong, please try again.");
     }
   };
@@ -53,10 +58,6 @@ const SignIn = () => {
   const handleRefreshCaptcha = () => {
     setActiveCaptcha(generateCaptcha());
     setCaptcha('');
-  };
-
-  const handleRegisterClick = () => {
-    navigate('/register');
   };
 
   return (
@@ -89,7 +90,8 @@ const SignIn = () => {
           color: #1e40af;
         }
         input[type="text"],
-        input[type="password"] {
+        input[type="password"],
+        input[type="email"] {
           width: 100%;
           padding: 12px;
           border-radius: 12px;
@@ -132,39 +134,9 @@ const SignIn = () => {
           background-color: #3b82f6;
           box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
         }
-        p {
-          text-align: center;
-          margin-top: 16px;
-        }
-        .link-button {
-          background: none;
-          border: none;
-          padding: 0;
-          color: #3b82f6;
-          text-decoration: underline;
-          cursor: pointer;
-          font-size: 1rem;
-          font-family: inherit;
-        }
-        .link-button:hover {
-          color: #1d4ed8;
-        }
-        .forgot-password-btn {
-          background: none;
-          border: none;
-          padding: 0;
-          color: #3b82f6;
-          text-decoration: underline;
-          cursor: pointer;
-          font-size: 1rem;
-          font-family: inherit;
-        }
-        .forgot-password-btn:hover {
-          color: #1d4ed8;
-        }
       `}</style>
 
-      <h2>Sign In</h2>
+      <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username</label>
@@ -178,6 +150,17 @@ const SignIn = () => {
         </div>
 
         <div>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+
+        <div>
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -185,6 +168,19 @@ const SignIn = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            minLength={6}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            minLength={6}
           />
         </div>
 
@@ -203,31 +199,10 @@ const SignIn = () => {
           </div>
         </div>
 
-        <button type="submit">Login</button>
-
-        <p>
-          <button
-            type="button"
-            onClick={() => alert('Redirecting to Forgot Password flow...')}
-            className="forgot-password-btn"
-          >
-            Forgot Password?
-          </button>
-        </p>
-
-        <p>
-          Don't have an account?{' '}
-          <button
-            type="button"
-            onClick={handleRegisterClick}
-            className="link-button"
-          >
-            Register here
-          </button>
-        </p>
+        <button type="submit">Register</button>
       </form>
     </section>
   );
 };
 
-export default SignIn;
+export default Register;
