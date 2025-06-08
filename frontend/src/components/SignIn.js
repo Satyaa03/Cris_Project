@@ -39,7 +39,7 @@ const SignIn = () => {
 
       if (response.ok) {
         alert("Login successful!");
-        // TODO: redirect or update UI on successful login
+        navigate("/dashboard");
       } else if (response.status === 401) {
         alert("Invalid credentials");
       } else {

@@ -6,6 +6,7 @@ import Stations from './components/Stations';
 import Zones from './components/Zones';
 import SignIn from './components/SignIn';
 import Register from './components/Register';
+import Dashboard from './components/Dashboard';
 
 
 export default function App() {
@@ -253,8 +254,20 @@ export default function App() {
                 <SignIn />
               } 
             />
+            <Route 
+              path="/register" 
+              element={
+                <Register />
+                } 
+            />
+            <Route 
+              path="*" 
+              element={
+                <SignIn />
+                } /> {/* default to signin */}
+            <Route path="/" element={<SignIn />} />
             <Route path="/register" element={<Register />} />
-            <Route path="*" element={<SignIn />} /> {/* default to signin */}
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
         </main>
       </Router>
