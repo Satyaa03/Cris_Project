@@ -1,5 +1,6 @@
 package org.cris.railways.module.dao;
 
+import org.cris.railways.module.model.Train;
 import org.cris.railways.module.model.Zone;
 import java.sql.*;
 import java.util.*;
@@ -89,4 +90,25 @@ public class ZoneDao {
             System.err.println("Error deleting zone: " + e.getMessage());
         }
     }
+
+    public List<Train> findInterZoneTrains(String zoneFrom, String zoneTo) throws SQLException {
+        String sql = "SELECT * FROM get_trains_by_zones(?, ?)";
+
+        List<Train> trains = new ArrayList<>();
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, zoneFrom);
+            stmt.setString(2, zoneTo);
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Train train = new Train();
+                train.setTrainNo(rs.getString("train_no"));
+                train.setTrainName(rs.getString("train_name"));
+                trains.add(train);
+            }
+        }
+    }
+
+    return trains;
+}
 }

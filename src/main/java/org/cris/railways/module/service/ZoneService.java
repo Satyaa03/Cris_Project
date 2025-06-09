@@ -1,6 +1,7 @@
 package org.cris.railways.module.service;
 
 import org.cris.railways.module.dao.ZoneDao;
+import org.cris.railways.module.model.Train;
 import org.cris.railways.module.model.Zone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,12 @@ public class ZoneService {
 
     public void deleteZone(String code) throws SQLException {
         zoneDao.deleteZone(code);
+    }
+     public List<Train> getInterZoneTrains(String zoneFrom, String zoneTo) {
+        try {
+            return zoneDao.findInterZoneTrains(zoneFrom, zoneTo);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching trains by zones", e);
+        }
     }
 }

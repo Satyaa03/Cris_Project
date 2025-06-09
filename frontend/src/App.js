@@ -7,7 +7,8 @@ import Zones from './components/Zones';
 import SignIn from './components/SignIn';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
-
+import ZoneAnalytics from "./components/ZoneAnalytics";
+import InterZoneTrains from "./components/InterZoneTrains";
 
 export default function App() {
   return (
@@ -268,6 +269,13 @@ export default function App() {
             <Route path="/" element={<SignIn />} />
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/zone-analytics" element={<ZoneAnalytics />} />
+            <Route path="/inter-zone-trains" element={<InterZoneTrains />} />
+            <Route path="*" element={
+                <section className="content-card" tabIndex={0}>
+                <h2>Welcome! Select a page from the navigation above.</h2>
+                </section>
+                } />
           </Routes>
         </main>
       </Router>

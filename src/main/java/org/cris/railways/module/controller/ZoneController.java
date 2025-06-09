@@ -1,5 +1,6 @@
 package org.cris.railways.module.controller;
 
+import org.cris.railways.module.model.Train;
 import org.cris.railways.module.model.Zone;
 import org.cris.railways.module.service.ZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,11 @@ public class ZoneController {
         } catch (SQLException e) {
             System.err.println("Error deleting zone: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/{zoneFrom}/trains/{zoneTo}")
+    public List<Train> getInterZoneTrains(@PathVariable String zoneFrom, @PathVariable String zoneTo) {
+        return zoneService.getInterZoneTrains(zoneFrom, zoneTo);
     }
 }
 
