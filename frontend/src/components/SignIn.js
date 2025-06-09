@@ -162,6 +162,25 @@ const SignIn = () => {
         .forgot-password-btn:hover {
           color: #1d4ed8;
         }
+        .refresh-button {
+          background-color: #facc15; /* amber-400 */
+          color: #1e3a8a;
+          padding: 8px 16px;
+          margin-left: 8px;
+          font-weight: 600;
+          font-size: 0.9rem;
+          border: none;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .refresh-button:hover {
+          background-color: #fbbf24; /* amber-300 */
+          transform: scale(1.05);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+          
       `}</style>
 
       <h2>Sign In</h2>
@@ -199,7 +218,13 @@ const SignIn = () => {
               onChange={(e) => setCaptcha(e.target.value)}
               required
             />
-            <button type="button" onClick={handleRefreshCaptcha}>Refresh</button>
+            <button
+              type="button"
+              onClick={handleRefreshCaptcha}
+              className="refresh-button"
+            >
+            Refresh
+            </button>
           </div>
         </div>
 
