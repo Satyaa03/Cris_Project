@@ -9,6 +9,8 @@ import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import ZoneAnalytics from "./components/ZoneAnalytics";
 import InterZoneTrains from "./components/InterZoneTrains";
+import AverageDistance from "./components/AverageDistance";
+
 
 export default function App() {
   return (
@@ -271,6 +273,7 @@ export default function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/zone-analytics" element={<ZoneAnalytics />} />
             <Route path="/inter-zone-trains" element={<InterZoneTrains />} />
+            <Route path="/average-distance" element={<AverageDistance />} />
             <Route path="*" element={
                 <section className="content-card" tabIndex={0}>
                 <h2>Welcome! Select a page from the navigation above.</h2>

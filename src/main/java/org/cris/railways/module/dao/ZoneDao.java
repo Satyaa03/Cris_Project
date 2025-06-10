@@ -110,5 +110,50 @@ public class ZoneDao {
     }
 
     return trains;
+    }
+
+    public double findAvgDistanceBetweenZones(String zoneFrom, String zoneTo) throws SQLException {
+    String sql = "SELECT avg_distance_between_zones(?, ?)";
+    double avgDistance = 0.0;
+
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        stmt.setString(1, zoneFrom);
+        stmt.setString(2, zoneTo);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                avgDistance = rs.getDouble(1); // Since this returns a single scalar value
+            }
+        }
+    }
+
+    return avgDistance;
+    }
+
+    public List<Map<String, Object>> getTrainTimelineThroughZone(String code, String trainNo) throws SQLException {
+    String sql = "SELECT * FROM get_train_timeline_through_zone(?, ?)";
+    List<Map<String, Object>> resultList = new ArrayList<>();
+
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        stmt.setString(1, code);
+        stmt.setString(2, trainNo);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            while (rs.next()) {
+                Map<String, Object> row = new HashMap<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    row.put(metaData.getColumnLabel(i), rs.getObject(i));
+                }
+                resultList.add(row);
+            }
+        }
+    }
+
+    return resultList;
 }
+
+
 }

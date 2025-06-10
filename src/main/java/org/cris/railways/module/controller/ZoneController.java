@@ -4,10 +4,13 @@ import org.cris.railways.module.model.Train;
 import org.cris.railways.module.model.Zone;
 import org.cris.railways.module.service.ZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/zones")
@@ -73,6 +76,29 @@ public class ZoneController {
     public List<Train> getInterZoneTrains(@PathVariable String zoneFrom, @PathVariable String zoneTo) {
         return zoneService.getInterZoneTrains(zoneFrom, zoneTo);
     }
+
+    @GetMapping("/{zoneFrom}/distance/{zoneTo}")
+    public ResponseEntity<Map<String, Double>> getAvgDistanceBetweenZones(
+        @PathVariable String zoneFrom,
+        @PathVariable String zoneTo) {
+    try {
+        double avgDistance = zoneService.getAvgDistanceBetweenZones(zoneFrom, zoneTo);
+        return ResponseEntity.ok(Map.of("average_distance", avgDistance));
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+    }
+
+     @GetMapping("/{code}/timeline/{trainNo}")
+    public List<Map<String, Object>> getTrainTimeline(
+            @PathVariable String code,
+            @RequestParam(required = false) String trainNo) throws SQLException {
+
+        return zoneService.getTrainTimelineThroughZone(code, trainNo);
+    }
+
+
 }
 
 

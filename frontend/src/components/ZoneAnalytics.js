@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Share2 } from "lucide-react";
+import { Share2, Ruler } from "lucide-react";
 
 const ZoneAnalytics = () => {
   const navigate = useNavigate();
@@ -22,13 +22,18 @@ const ZoneAnalytics = () => {
           margin-bottom: 24px;
           color: #1e3a8a;
         }
+        .card-grid {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          align-items: center;
+        }
         .card-button {
           background-color: rgba(147, 197, 253, 0.4);
           color: #1e3a8a;
           width: 100%;
           max-width: 300px;
           padding: 24px;
-          margin: 0 auto;
           font-size: 1rem;
           font-weight: 600;
           border: none;
@@ -48,10 +53,17 @@ const ZoneAnalytics = () => {
 
       <h2>Zone Analytics</h2>
 
-      <button className="card-button" onClick={() => navigate("/inter-zone-trains")}>
-        <Share2 size={32} />
-        Inter-Zone Trains
-      </button>
+      <div className="card-grid">
+        <button className="card-button" onClick={() => navigate("/inter-zone-trains")}>
+          <Share2 size={32} />
+          Inter-Zone Trains
+        </button>
+
+        <button className="card-button" onClick={() => navigate("/average-distance")}>
+          <Ruler size={32} />
+          Avg Distance Between Zones
+        </button>
+      </div>
     </div>
   );
 };
