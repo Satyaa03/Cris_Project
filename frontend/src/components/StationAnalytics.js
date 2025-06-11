@@ -1,14 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Share2, Ruler, History } from "lucide-react";
+import { BarChart, RailSymbol, Link } from "lucide-react";
 
-const ZoneAnalytics = () => {
+const StationAnalytics = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="zone-analytics-container">
+    <div className="station-analytics-container">
       <style>{`
-        .zone-analytics-container {
+        .station-analytics-container {
           background: #f0f4ff;
           padding: 40px;
           border-radius: 16px;
@@ -17,7 +17,7 @@ const ZoneAnalytics = () => {
           margin: 0 auto;
           text-align: center;
         }
-        .zone-analytics-container h2 {
+        .station-analytics-container h2 {
           font-size: 2rem;
           margin-bottom: 24px;
           color: #1e3a8a;
@@ -51,26 +51,26 @@ const ZoneAnalytics = () => {
         }
       `}</style>
 
-      <h2>Zone Analytics</h2>
+      <h2>Station Analytics</h2>
 
       <div className="card-grid">
-        <button className="card-button" onClick={() => navigate("/inter-zone-trains")}>
-          <Share2 size={32} />
-          Inter-Zone Trains
+        <button className="card-button" onClick={() => navigate("/most-visited-stations")}>
+          <BarChart size={32} />
+          Most Visited Stations Between Two Divisions
         </button>
 
-        <button className="card-button" onClick={() => navigate("/average-distance")}>
-          <Ruler size={32} />
-          Average Distance Between Zones
+        <button className="card-button" onClick={() => navigate("/shared-stations")}>
+          <RailSymbol size={32} />
+          Shared Stations for Trains Between Two Zones
         </button>
 
-        <button className="card-button" onClick={() => navigate("/train-timeline")}>
-          <History size={32} />
-          Train Timeline Through a Zone
+        <button className="card-button" onClick={() => navigate("/stations-as-hubs")}>
+          <Link size={32} />
+          Stations That Serve as Hubs Between Two Districts
         </button>
       </div>
     </div>
   );
 };
 
-export default ZoneAnalytics;
+export default StationAnalytics;

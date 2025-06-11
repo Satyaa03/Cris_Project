@@ -10,7 +10,8 @@ import Dashboard from './components/Dashboard';
 import ZoneAnalytics from "./components/ZoneAnalytics";
 import InterZoneTrains from "./components/InterZoneTrains";
 import AverageDistance from "./components/AverageDistance";
-
+import TrainTimeline from "./components/TrainTimeline";
+import StationAnalytics from "./components/StationAnalytics";
 
 export default function App() {
   return (
@@ -279,6 +280,8 @@ export default function App() {
                 <h2>Welcome! Select a page from the navigation above.</h2>
                 </section>
                 } />
+            <Route path="/train-timeline" element={<TrainTimeline />} />
+            <Route path="/station-analytics" element={<StationAnalytics />} />
           </Routes>
         </main>
       </Router>

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/stations")
@@ -66,6 +67,22 @@ public class StationController {
         } catch (SQLException e) {
             System.err.println("Error deleting station: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/common/{divisionA}/{divisionB}")
+    public List<Map<String, Object>> getCommonStations(
+            @PathVariable String divisionA,
+            @PathVariable String divisionB) throws SQLException {
+
+        return stationService.getCommonStationsBetweenDivisions(divisionA, divisionB);
+    }
+
+    @GetMapping("/shared-stations/{zone1}/{zone2}")
+    public List<Map<String, Object>> getSharedStationsForZones(
+            @PathVariable String zone1,
+            @PathVariable String zone2) throws SQLException {
+
+        return stationService.getSharedStationsForZoneTrains(zone1, zone2);
     }
 }
 

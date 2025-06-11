@@ -105,4 +105,54 @@ public class StationDao {
             System.err.println("Error deleting station: " + e.getMessage());
         }
     }
+
+    public List<Map<String, Object>> getCommonStationsBetweenDivisions(String divisionA, String divisionB) throws SQLException {
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        String sql = "SELECT * FROM get_common_stations_between_divisions(?, ?)";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, divisionA);
+            ps.setString(2, divisionB);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                ResultSetMetaData metaData = rs.getMetaData();
+                int columnCount = metaData.getColumnCount();
+
+                while (rs.next()) {
+                    Map<String, Object> row = new HashMap<>();
+                    for (int i = 1; i <= columnCount; i++) {
+                        row.put(metaData.getColumnLabel(i), rs.getObject(i));
+                    }
+                    result.add(row);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public List<Map<String, Object>> getSharedStationsForZoneTrains(String zone1, String zone2) throws SQLException {
+    List<Map<String, Object>> result = new ArrayList<>();
+
+    String sql = "SELECT * FROM get_shared_stations_for_zone_trains(?, ?)";
+    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        ps.setString(1, zone1);
+        ps.setString(2, zone2);
+
+        try (ResultSet rs = ps.executeQuery()) {
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            while (rs.next()) {
+                Map<String, Object> row = new HashMap<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    row.put(metaData.getColumnLabel(i), rs.getObject(i));
+                }
+                result.add(row);
+            }
+        }
+    }
+
+        return result;
+    }
 }

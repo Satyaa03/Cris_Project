@@ -90,7 +90,7 @@ public class ZoneController {
     }
     }
 
-     @GetMapping("/{code}/timeline/{trainNo}")
+    @GetMapping("/{code}/timeline")
     public List<Map<String, Object>> getTrainTimeline(
             @PathVariable String code,
             @RequestParam(required = false) String trainNo) throws SQLException {

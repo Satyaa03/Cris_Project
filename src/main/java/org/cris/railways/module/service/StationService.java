@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class StationService {
@@ -39,5 +40,13 @@ public class StationService {
     public void deleteStation(String stn_code) throws SQLException {
         stationDao.deleteStation(stn_code);
     }
+
+    public List<Map<String, Object>> getCommonStationsBetweenDivisions(String divisionA, String divisionB) throws SQLException {
+        return stationDao.getCommonStationsBetweenDivisions(divisionA, divisionB);
+    }
+
+    public List<Map<String, Object>> getSharedStationsForZoneTrains(String zone1, String zone2) throws SQLException {
+    return stationDao.getSharedStationsForZoneTrains(zone1, zone2);
+}
 }
 
