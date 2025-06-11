@@ -72,11 +72,6 @@ public class ZoneController {
         }
     }
 
-    @GetMapping("/{zoneFrom}/trains/{zoneTo}")
-    public List<Train> getInterZoneTrains(@PathVariable String zoneFrom, @PathVariable String zoneTo) {
-        return zoneService.getInterZoneTrains(zoneFrom, zoneTo);
-    }
-
     @GetMapping("/{zoneFrom}/distance/{zoneTo}")
     public ResponseEntity<Map<String, Double>> getAvgDistanceBetweenZones(
         @PathVariable String zoneFrom,
@@ -90,16 +85,23 @@ public class ZoneController {
     }
     }
 
-    @GetMapping("/{code}/timeline")
-    public List<Map<String, Object>> getTrainTimeline(
-            @PathVariable String code,
-            @RequestParam(required = false) String trainNo) throws SQLException {
-
-        return zoneService.getTrainTimelineThroughZone(code, trainNo);
+    @GetMapping("/overview/{zoneCode}")
+    public List<Map<String, Object>> getZoneOverview(@PathVariable String zoneCode) {
+        try {
+            return zoneService.getZoneOverview(zoneCode);
+        } catch (SQLException e) {
+            System.err.println("Error in zone_overview: " + e.getMessage());
+            return List.of();
+        }
     }
 
+    @GetMapping("/train-zone-hops/{trainNo}")
+    public List<Map<String, Object>> getTrainZoneHops(@PathVariable String trainNo) throws SQLException {
+        return zoneService.getTrainZoneHops(trainNo);
+    }
 
 }
+
 
 
 

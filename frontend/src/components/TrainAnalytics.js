@@ -1,14 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { BarChart, RailSymbol, TrainTrack } from "lucide-react";
+import { Share2, Link, History } from "lucide-react";
 
-const StationAnalytics = () => {
+const TrainAnalytics = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="station-analytics-container">
+    <div className="train-analytics-container">
       <style>{`
-        .station-analytics-container {
+        .train-analytics-container {
           background: #f0f4ff;
           padding: 40px;
           border-radius: 16px;
@@ -17,7 +17,7 @@ const StationAnalytics = () => {
           margin: 0 auto;
           text-align: center;
         }
-        .station-analytics-container h2 {
+        .train-analytics-container h2 {
           font-size: 2rem;
           margin-bottom: 24px;
           color: #1e3a8a;
@@ -51,27 +51,26 @@ const StationAnalytics = () => {
         }
       `}</style>
 
-      <h2>Station Analytics</h2>
+      <h2>Train Analytics</h2>
 
       <div className="card-grid">
-        <button className="card-button" onClick={() => navigate("/common-stations")}>
-          <BarChart size={32} />
-          Common Stations Between Two Divisions
+        <button className="card-button" onClick={() => navigate("/inter-zone-trains")}>
+          <Share2 size={32} />
+          Inter-Zone Trains
         </button>
 
-        <button className="card-button" onClick={() => navigate("/shared-stations")}>
-          <RailSymbol size={32} />
-          Shared Stations for Trains Between Two Zones
+        <button className="card-button" onClick={() => navigate("/trains-passing-stations")}>
+          <Link size={32} />
+          Trains Passing Through a Specific Station
         </button>
 
-        <button className="card-button" onClick={() => navigate("/station-traffic-summary")}>
-          <TrainTrack size={32} />
-          Station Traffic Summary
+        <button className="card-button" onClick={() => navigate("/train-timeline")}>
+          <History size={32} />
+          Train Timeline Through a Zone
         </button>
-
       </div>
     </div>
   );
 };
 
-export default StationAnalytics;
+export default TrainAnalytics;

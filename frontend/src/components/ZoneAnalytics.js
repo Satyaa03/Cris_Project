@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Share2, Ruler, History } from "lucide-react";
+import { Grid, Ruler, Route } from "lucide-react";
 
 const ZoneAnalytics = () => {
   const navigate = useNavigate();
@@ -54,9 +54,9 @@ const ZoneAnalytics = () => {
       <h2>Zone Analytics</h2>
 
       <div className="card-grid">
-        <button className="card-button" onClick={() => navigate("/inter-zone-trains")}>
-          <Share2 size={32} />
-          Inter-Zone Trains
+        <button className="card-button" onClick={() => navigate("/zone-overview")}>
+          <Grid size={32} />
+          Zone Overview
         </button>
 
         <button className="card-button" onClick={() => navigate("/average-distance")}>
@@ -64,9 +64,9 @@ const ZoneAnalytics = () => {
           Average Distance Between Zones
         </button>
 
-        <button className="card-button" onClick={() => navigate("/train-timeline")}>
-          <History size={32} />
-          Train Timeline Through a Zone
+        <button className="card-button" onClick={() => navigate("/train-zone-hops")}>
+          <Route size={32} />
+          Zone Hops for Trains
         </button>
       </div>
     </div>

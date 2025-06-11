@@ -91,26 +91,7 @@ public class ZoneDao {
         }
     }
 
-    public List<Train> findInterZoneTrains(String zoneFrom, String zoneTo) throws SQLException {
-        String sql = "SELECT * FROM get_trains_by_zones(?, ?)";
-
-        List<Train> trains = new ArrayList<>();
-
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, zoneFrom);
-            stmt.setString(2, zoneTo);
-        try (ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                Train train = new Train();
-                train.setTrainNo(rs.getString("train_no"));
-                train.setTrainName(rs.getString("train_name"));
-                trains.add(train);
-            }
-        }
-    }
-
-    return trains;
-    }
+    
 
     public double findAvgDistanceBetweenZones(String zoneFrom, String zoneTo) throws SQLException {
     String sql = "SELECT avg_distance_between_zones(?, ?)";
@@ -130,30 +111,48 @@ public class ZoneDao {
     return avgDistance;
     }
 
-    public List<Map<String, Object>> getTrainTimelineThroughZone(String code, String trainNo) throws SQLException {
-    String sql = "SELECT * FROM get_train_timeline_through_zone(?, ?)";
-    List<Map<String, Object>> resultList = new ArrayList<>();
+        public List<Map<String, Object>> getTrainZoneHops(String trainNo) throws SQLException {
+        String query = "SELECT * FROM train_zone_hops(?)";
+        List<Map<String, Object>> resultList = new ArrayList<>();
 
-    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-        stmt.setString(1, code);
-        stmt.setString(2, trainNo);
-
-        try (ResultSet rs = stmt.executeQuery()) {
-            ResultSetMetaData metaData = rs.getMetaData();
-            int columnCount = metaData.getColumnCount();
-
-            while (rs.next()) {
-                Map<String, Object> row = new HashMap<>();
-                for (int i = 1; i <= columnCount; i++) {
-                    row.put(metaData.getColumnLabel(i), rs.getObject(i));
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, trainNo);
+            try (ResultSet rs = stmt.executeQuery()) {
+                ResultSetMetaData meta = rs.getMetaData();
+                int colCount = meta.getColumnCount();
+                while (rs.next()) {
+                    Map<String, Object> row = new HashMap<>();
+                    for (int i = 1; i <= colCount; i++) {
+                        row.put(meta.getColumnLabel(i), rs.getObject(i));
+                    }
+                    resultList.add(row);
                 }
-                resultList.add(row);
             }
         }
+
+        return resultList;
     }
 
-    return resultList;
-}
+        public List<Map<String, Object>> getZoneOverview(String zoneCode) throws SQLException {
+        String query = "SELECT * FROM zone_overview(?)";
+        List<Map<String, Object>> resultList = new ArrayList<>();
 
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, zoneCode);
+            try (ResultSet rs = stmt.executeQuery()) {
+                ResultSetMetaData meta = rs.getMetaData();
+                int colCount = meta.getColumnCount();
+                while (rs.next()) {
+                    Map<String, Object> row = new HashMap<>();
+                    for (int i = 1; i <= colCount; i++) {
+                        row.put(meta.getColumnLabel(i), rs.getObject(i));
+                    }
+                    resultList.add(row);
+                }
+            }
+        }
+
+        return resultList;
+    }
 
 }

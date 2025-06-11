@@ -41,24 +41,19 @@ public class ZoneService {
     public void deleteZone(String code) throws SQLException {
         zoneDao.deleteZone(code);
     }
-     public List<Train> getInterZoneTrains(String zoneFrom, String zoneTo) {
-        try {
-            return zoneDao.findInterZoneTrains(zoneFrom, zoneTo);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error fetching trains by zones", e);
-        }
-    }
+     
 
     public double getAvgDistanceBetweenZones(String zoneFrom, String zoneTo) throws SQLException {
         return zoneDao.findAvgDistanceBetweenZones(zoneFrom, zoneTo);
     }
 
-    public List<Map<String, Object>> getTrainTimelineThroughZone(String code, String trainNo) {
-        try {
-            return zoneDao.getTrainTimelineThroughZone(code, trainNo);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error fetching train timeline", e);
-        }
-    }
+    public List<Map<String, Object>> getTrainZoneHops(String trainNo) throws SQLException {
+    return zoneDao.getTrainZoneHops(trainNo);
+}
+
+    public List<Map<String, Object>> getZoneOverview(String zoneCode) throws SQLException {
+    return zoneDao.getZoneOverview(zoneCode);
+}
+
 
 }

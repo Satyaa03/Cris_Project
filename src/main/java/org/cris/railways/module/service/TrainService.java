@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TrainService {
@@ -42,6 +43,22 @@ public class TrainService {
 
     public List<Train> getTrainsByTrainNo(String trainNo) throws SQLException {
     return trainDao.getTrainsByTrainNo(trainNo);
+    }
+
+    public List<Map<String, Object>> getTrainTimelineThroughZone(String code, String trainNo) {
+        try {
+            return trainDao.getTrainTimelineThroughZone(code, trainNo);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching train timeline", e);
+        }
+    }
+
+    public List<Train> getInterZoneTrains(String zoneFrom, String zoneTo) {
+        try {
+            return trainDao.findInterZoneTrains(zoneFrom, zoneTo);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching trains by zones", e);
+        }
     }
 
 }

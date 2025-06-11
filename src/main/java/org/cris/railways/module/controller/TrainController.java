@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/trains")
@@ -76,5 +77,18 @@ public class TrainController {
             System.err.println("Error retrieving trains: " + e.getMessage());
             return List.of(); // Return empty list on error
         }
+    }
+
+     @GetMapping("/{code}/timeline")
+    public List<Map<String, Object>> getTrainTimeline(
+            @PathVariable String code,
+            @RequestParam(required = false) String trainNo) throws SQLException {
+
+        return trainService.getTrainTimelineThroughZone(code, trainNo);
+    }
+
+    @GetMapping("/{zoneFrom}/trains/{zoneTo}")
+    public List<Train> getInterZoneTrains(@PathVariable String zoneFrom, @PathVariable String zoneTo) {
+        return trainService.getInterZoneTrains(zoneFrom, zoneTo);
     }
 }

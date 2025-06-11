@@ -15,6 +15,10 @@ import StationAnalytics from "./components/StationAnalytics";
 import CommonStations from './components/CommonStations';
 import SharedStations from "./components/SharedStations";
 import TrainsPassingStation from './components/TrainsPassingStation';
+import TrainAnalytics from './components/TrainAnalytics';
+import ZoneOverview from './components/ZoneOverview';
+import TrainZoneHops from './components/TrainZoneHops';
+import StationTrafficSummary from './components/StationTrafficSummary';
 
 export default function App() {
   return (
@@ -287,7 +291,11 @@ export default function App() {
             <Route path="/station-analytics" element={<StationAnalytics />} />
             <Route path="/common-stations" element ={<CommonStations />} />
             <Route path="/shared-stations" element ={<SharedStations />} />
-            <Route path="trains-passing-stations" element ={<TrainsPassingStation />} />
+            <Route path="/trains-passing-stations" element ={<TrainsPassingStation />} />
+            <Route path="/train-analytics" element ={<TrainAnalytics />} />
+            <Route path = "/zone-overview" element = {<ZoneOverview />} />
+            <Route path ="/train-zone-hops" element = {<TrainZoneHops />} />
+            <Route path ="/station-traffic-summary" element = {<StationTrafficSummary />} />
           </Routes>
         </main>
       </Router>

@@ -9,8 +9,6 @@ const Dashboard = () => {
     { title: "Zone Analytics", path: "/zone-analytics", icon: <MapPin size={32} /> },
     { title: "Station Analytics", path: "/station-analytics", icon: <Train size={32} /> },
     { title: "Train Analytics", path: "/train-analytics", icon: <Activity size={32} /> },
-    { title: "Route and Connectivity", path: "/route-connectivity", icon: <Share2 size={32} /> },
-    { title: "Timetable & Frequency Patterns", path: "/timetable-patterns", icon: <Clock size={32} /> },
   ];
 
   return (

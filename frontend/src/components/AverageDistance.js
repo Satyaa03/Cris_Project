@@ -38,46 +38,59 @@ const AverageDistance = () => {
     <div className="avg-distance-container">
       <style>{`
         .avg-distance-container {
+          background: #f0f4ff;
+          padding: 40px;
+          border-radius: 16px;
+          box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
           max-width: 600px;
           margin: 0 auto;
-          padding: 40px;
-          background: #f9fafb;
-          border-radius: 16px;
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-          font-family: 'Segoe UI', sans-serif;
+          text-align: left;
+          font-family: Arial, sans-serif;
         }
         h2 {
           text-align: center;
-          color: #1e3a8a;
+          font-size: 2rem;
           margin-bottom: 24px;
+          color: #1e3a8a;
+        }
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
         }
         label {
-          font-weight: bold;
-          color: #334155;
+          font-weight: 600;
+          color: #1e40af;
           display: block;
-          margin-bottom: 8px;
+          margin-bottom: 6px;
         }
         select {
-          width: 100%;
           padding: 12px;
-          margin-bottom: 20px;
           border-radius: 12px;
           border: 1px solid #cbd5e1;
-          background: #eef2ff;
+          background-color: #e0f2fe;
+          font-size: 1rem;
+          width: 100%;
+          box-sizing: border-box;
         }
         button {
-          width: 100%;
-          padding: 12px;
-          background-color: #1d4ed8;
+          background-color: #1e3a8a;
           color: white;
-          font-weight: bold;
+          padding: 12px;
+          font-size: 1rem;
           border: none;
           border-radius: 12px;
           cursor: pointer;
-          transition: background-color 0.3s;
+          width: 100%;
+          transition: background-color 0.3s ease;
+          margin-top: 16px;
         }
-        button:hover {
-          background-color: #2563eb;
+        button:hover:not(:disabled) {
+          background-color: #3b82f6;
+        }
+        button:disabled {
+          background-color: #94a3b8;
+          cursor: not-allowed;
         }
         .result {
           margin-top: 24px;
@@ -86,6 +99,7 @@ const AverageDistance = () => {
           text-align: center;
         }
       `}</style>
+
 
       <h2>Average Travel Distance</h2>
 

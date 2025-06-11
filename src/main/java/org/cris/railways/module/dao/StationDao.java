@@ -179,5 +179,27 @@ public class StationDao {
         }
     }
 
+    public List<Map<String, Object>> getStationTrafficSummary(String stationCode) throws SQLException {
+    String sql = "SELECT * FROM station_traffic_summary(?);";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        stmt.setString(1, stationCode);
+        try (ResultSet rs = stmt.executeQuery()) {
+            List<Map<String, Object>> results = new ArrayList<>();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            while (rs.next()) {
+                Map<String, Object> row = new HashMap<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    row.put(metaData.getColumnLabel(i), rs.getObject(i));
+                }
+                results.add(row);
+            }
+            return results;
+        }
+    }
+}
+
+
 
 }

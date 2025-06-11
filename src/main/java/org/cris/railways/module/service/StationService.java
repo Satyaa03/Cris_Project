@@ -53,6 +53,10 @@ public class StationService {
         return stationDao.getTrainsPassingStation(stationCode);
     }
 
+    public List<Map<String, Object>> getStationTrafficSummary(String stationCode) throws SQLException {
+        return stationDao.getStationTrafficSummary(stationCode);
+    }
+
 
 }
 

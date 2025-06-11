@@ -90,5 +90,9 @@ public class StationController {
         return stationService.getTrainsPassingStation(stationCode);
     }
     
+     @GetMapping("/traffic-summary/{code}")
+    public List<Map<String, Object>> getStationTraffic(@PathVariable String code) throws SQLException {
+        return stationService.getStationTrafficSummary(code);
+    }
 }
 
