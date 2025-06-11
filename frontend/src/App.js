@@ -12,6 +12,9 @@ import InterZoneTrains from "./components/InterZoneTrains";
 import AverageDistance from "./components/AverageDistance";
 import TrainTimeline from "./components/TrainTimeline";
 import StationAnalytics from "./components/StationAnalytics";
+import CommonStations from './components/CommonStations';
+import SharedStations from "./components/SharedStations";
+import TrainsPassingStation from './components/TrainsPassingStation';
 
 export default function App() {
   return (
@@ -282,6 +285,9 @@ export default function App() {
                 } />
             <Route path="/train-timeline" element={<TrainTimeline />} />
             <Route path="/station-analytics" element={<StationAnalytics />} />
+            <Route path="/common-stations" element ={<CommonStations />} />
+            <Route path="/shared-stations" element ={<SharedStations />} />
+            <Route path="trains-passing-stations" element ={<TrainsPassingStation />} />
           </Routes>
         </main>
       </Router>

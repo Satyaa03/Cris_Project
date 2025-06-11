@@ -84,5 +84,11 @@ public class StationController {
 
         return stationService.getSharedStationsForZoneTrains(zone1, zone2);
     }
+
+    @GetMapping("/trains-passing/{stationCode}")
+    public List<Map<String, Object>> getTrainsPassingStation(@PathVariable String stationCode) throws SQLException {
+        return stationService.getTrainsPassingStation(stationCode);
+    }
+    
 }
 

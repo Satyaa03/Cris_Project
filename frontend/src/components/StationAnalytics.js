@@ -54,9 +54,9 @@ const StationAnalytics = () => {
       <h2>Station Analytics</h2>
 
       <div className="card-grid">
-        <button className="card-button" onClick={() => navigate("/most-visited-stations")}>
+        <button className="card-button" onClick={() => navigate("/common-stations")}>
           <BarChart size={32} />
-          Most Visited Stations Between Two Divisions
+          Common Stations Between Two Divisions
         </button>
 
         <button className="card-button" onClick={() => navigate("/shared-stations")}>
@@ -64,9 +64,9 @@ const StationAnalytics = () => {
           Shared Stations for Trains Between Two Zones
         </button>
 
-        <button className="card-button" onClick={() => navigate("/stations-as-hubs")}>
+        <button className="card-button" onClick={() => navigate("/trains-passing-stations")}>
           <Link size={32} />
-          Stations That Serve as Hubs Between Two Districts
+          Trains Passing Through a Specific Station
         </button>
       </div>
     </div>

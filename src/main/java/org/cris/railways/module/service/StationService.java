@@ -46,7 +46,13 @@ public class StationService {
     }
 
     public List<Map<String, Object>> getSharedStationsForZoneTrains(String zone1, String zone2) throws SQLException {
-    return stationDao.getSharedStationsForZoneTrains(zone1, zone2);
-}
+        return stationDao.getSharedStationsForZoneTrains(zone1, zone2);
+    }
+
+    public List<Map<String, Object>> getTrainsPassingStation(String stationCode) throws SQLException {
+        return stationDao.getTrainsPassingStation(stationCode);
+    }
+
+
 }
 
