@@ -23,7 +23,7 @@ const InterZoneTrains = () => {
     if (!fromZoneCode || !toZoneCode) return;
 
     try {
-      const url = `http://localhost:8080/api/zones/${fromZoneCode}/trains/${toZoneCode}`;
+      const url = `http://localhost:8080/api/trains/${fromZoneCode}/trains/${toZoneCode}`;
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`Server error: ${response.status}`);

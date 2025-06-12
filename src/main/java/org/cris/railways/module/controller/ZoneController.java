@@ -1,6 +1,5 @@
 package org.cris.railways.module.controller;
 
-import org.cris.railways.module.model.Train;
 import org.cris.railways.module.model.Zone;
 import org.cris.railways.module.service.ZoneService;
 import org.springframework.beans.factory.annotation.Autowired;

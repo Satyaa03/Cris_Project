@@ -1,7 +1,6 @@
 package org.cris.railways.module.service;
 
 import org.cris.railways.module.dao.ZoneDao;
-import org.cris.railways.module.model.Train;
 import org.cris.railways.module.model.Zone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

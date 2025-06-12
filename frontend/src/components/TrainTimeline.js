@@ -23,7 +23,7 @@ const TrainTimeline = () => {
     if (!zoneCode) return;
     try {
       const query = trainNo ? `?trainNo=${trainNo}` : "";
-      const res = await fetch(`http://localhost:8080/api/zones/${zoneCode}/timeline${query}`);
+      const res = await fetch(`http://localhost:8080/api/trains/${zoneCode}/timeline${query}`);
       const data = await res.json();
       setResults(data);
     } catch (error) {
