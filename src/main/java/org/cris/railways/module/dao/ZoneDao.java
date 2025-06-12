@@ -1,6 +1,5 @@
 package org.cris.railways.module.dao;
 
-import org.cris.railways.module.model.Train;
 import org.cris.railways.module.model.Zone;
 import java.sql.*;
 import java.util.*;
