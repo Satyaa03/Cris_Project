@@ -48,51 +48,65 @@ const SharedStations = () => {
     <div className="shared-stations-container">
       <style>{`
         .shared-stations-container {
-          background: #f8fafc;
+          background: #f0f4ff;
           padding: 40px;
           border-radius: 16px;
+          box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
           max-width: 600px;
           margin: 0 auto;
+          text-align: left;
           font-family: Arial, sans-serif;
         }
         h2 {
           text-align: center;
           color: #1e3a8a;
           margin-bottom: 24px;
+          font-size: 2rem
+        }
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
         }
         label {
           font-weight: 600;
           display: block;
-          margin-bottom: 8px;
+          margin-bottom: 6px;
           color: #1e40af;
         }
         select {
-          width: 100%;
-          padding: 10px;
-          border-radius: 10px;
-          border: 1px solid #93c5fd;
-          margin-bottom: 20px;
+          padding: 12px;
+          border-radius: 12px;
+          border: 1px solid #cbd5e1;
+          background-color: #e0f2fe;
           font-size: 1rem;
-          background-color: #f0f9ff;
-          color: #1e3a8a;
+          width: 100%;
+          box-sizing: border-box;
         }
         button {
-          background-color: #2563eb;
+          background-color: #1e3a8a;
           color: white;
           padding: 12px;
           font-size: 1rem;
           border: none;
-          border-radius: 10px;
+          border-radius: 12px;
           cursor: pointer;
           width: 100%;
           transition: background-color 0.3s ease;
+          margin-top: 16px;
         }
-        button:hover {
-          background-color: #1d4ed8;
+        button:hover:not(:disabled) {
+          background-color: #3b82f6;
         }
         button:disabled {
-          background-color: #bfdbfe;
+          background-color: #94a3b8;
           cursor: not-allowed;
+        }
+        .result {
+          margin-top: 24px;
+          font-size: 1.25rem;
+          color: #1e40af;
+          text-align: center;
         }
         ul {
           list-style: none;
@@ -105,10 +119,7 @@ const SharedStations = () => {
           border-radius: 8px;
           color: #1e3a8a;
         }
-        .results h3 {
-          margin-top: 30px;
-          color: #1e3a8a;
-        }
+        
       `}</style>
 
       <h2>Shared Stations Between Zones</h2>

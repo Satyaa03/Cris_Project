@@ -45,47 +45,65 @@ const CommonStations = () => {
     <div className="common-stations-container">
       <style>{`
         .common-stations-container {
-          background: #f8fafc;
+           background: #f0f4ff;
           padding: 40px;
           border-radius: 16px;
+          box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
           max-width: 600px;
           margin: 0 auto;
+          text-align: left;
           font-family: Arial, sans-serif;
         }
         h2 {
           text-align: center;
+          font-size: 2rem;
           color: #1e3a8a;
           margin-bottom: 24px;
+        }
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
         }
         label {
           font-weight: 600;
           display: block;
-          margin-bottom: 8px;
+          margin-bottom: 6px;
           color: #1e40af;
         }
         select {
-          width: 100%;
-          padding: 10px;
-          border-radius: 10px;
+          padding: 12px;
+          border-radius: 12px;
           border: 1px solid #cbd5e1;
-          margin-bottom: 20px;
+          background-color: #e0f2fe;
           font-size: 1rem;
+          width: 100%;
+          box-sizing: border-box;
         }
         button {
-          background-color: #1d4ed8;
+          background-color: #1e3a8a;
           color: white;
           padding: 12px;
           font-size: 1rem;
           border: none;
-          border-radius: 10px;
+          border-radius: 12px;
           cursor: pointer;
           width: 100%;
-          margin-top: 10px;
+          transition: background-color 0.3s ease;
+          margin-top: 16px;
+        }
+        button:hover:not(:disabled) {
+          background-color: #3b82f6;
         }
         button:disabled {
-          background-color: #93c5fd;
+          background-color: #94a3b8;
           cursor: not-allowed;
         }
+        .result {
+          margin-top: 24px;
+          font-size: 1.25rem;
+          color: #1e40af;
+          text-align: center;
         ul {
           list-style: none;
           padding: 0;
